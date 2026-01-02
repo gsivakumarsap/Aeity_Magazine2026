@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AEITY Digital Magazine 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #1a1a1a;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .magazine-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .page {
+            min-height: 100vh;
+            background: white;
+            padding: 60px 80px;
+            margin: 20px auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* COVER PAGE */
+        .cover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .cover-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            font-size: 72px;
+            font-weight: 900;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+        }
+
+        .tagline {
+            font-size: 28px;
+            font-style: italic;
+            margin-bottom: 40px;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .cover-badges {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 10px 20px;
+            border: 2px solid white;
+            border-radius: 30px;
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        .edition {
+            font-size: 24px;
+            margin-top: 40px;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+
+        /* NAVIGATION */
+        .nav-controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+            background: rgba(0,0,0,0.8);
+            padding: 15px 25px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn {
+            background: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .page-indicator {
+            color: white;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            padding: 0 15px;
+        }
+
+        /* CONTENT STYLES */
+        h1 {
+            font-size: 48px;
+            margin-bottom: 30px;
+            color: #667eea;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            font-size: 36px;
+            margin: 40px 0 20px;
+            color: #764ba2;
+        }
+
+        h3 {
+            font-size: 24px;
+            margin: 30px 0 15px;
+            color: #333;
+        }
+
+        .article-number {
+            font-size: 14px;
+            color: #667eea;
+            font-weight: 600;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .drop-cap::first-letter {
+            font-size: 72px;
+            float: left;
+            line-height: 60px;
+            padding-right: 8px;
+            margin-top: 3px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .two-column {
+            column-count: 2;
+            column-gap: 40px;
+            text-align: justify;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .pull-quote {
+            font-size: 24px;
+            font-style: italic;
+            color: #764ba2;
+            border-left: 4px solid #667eea;
+            padding: 20px 30px;
+            margin: 30px 0;
+            background: #f8f9fa;
+            font-weight: 500;
+        }
+
+        .stats-box {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .feature-box {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            padding: 20px 0 20px 40px;
+            border-left: 3px solid #667eea;
+            margin-left: 20px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            width: 15px;
+            height: 15px;
+            background: #667eea;
+            border: 3px solid white;
+            border-radius: 50%;
+            position: absolute;
+            left: -10px;
+            top: 25px;
+        }
+
+        .testimonial {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-top: 3px solid #667eea;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .case-study {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .case-title {
+            font-size: 20px;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .toc-item {
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .toc-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .toc-number {
+            font-size: 14px;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .toc-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .toc-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* BACK COVER */
+        .back-cover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .cta-button {
+            background: white;
+            color: #667eea;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255,255,255,0.3);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .foreword-section {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .signature {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 32px;
+            margin: 20px 0;
+            color: #667eea;
+        }
+
+        ul, ol {
+            margin: 20px 0;
+            padding-left: 30px;
+            line-height: 1.8;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            .page {
+                padding: 40px 30px;
+            }
+            
+            .two-column {
+                column-count: 1;
+            }
+            
+            h1 {
+                font-size: 36px;
+            }
+            
+            .logo {
+                font-size: 48px;
+            }
+            
+            .nav-controls {
+                bottom: 10px;
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="magazine-container">
+        <!-- PAGE 1: COVER -->
+        <div class="page cover active" id="page-1">
+            <div class="cover-content">
+                <div class="logo">AEITY</div>
+                <div class="tagline">Transforming Tomorrow, Today</div>
+                <div class="cover-badges">
+                    <div class="badge">GLOBAL INNOVATION</div>
+                    <div class="badge">DIGITAL EXCELLENCE</div>
+                    <div class="badge">SUSTAINABLE GROWTH</div>
+                </div>
+                <div class="edition">SPECIAL GLOBAL EDITION 2026</div>
+                <div class="subtitle">Vision • Innovation • Leadership</div>
+            </div>
+        </div>
+
+        <!-- PAGE 2: CEO FOREWORD & TOC -->
+        <div class="page" id="page-2">
+            <div class="foreword-section">
+                <h1>CEO Foreword</h1>
+                <h3>From Vision to Global Impact</h3>
+                <p class="drop-cap" style="margin-top: 20px;">At AEITY, we believe technology achieves its highest value when it empowers people, strengthens businesses, and contributes positively to society. Our journey is rooted in a simple yet powerful idea: to build future-ready digital ecosystems that scale responsibly and inclusively.</p>
+                <p style="margin-top: 15px; line-height: 1.8;">This magazine represents more than where AEITY stands today—it reflects where we are headed. As we expand our global footprint, invest in advanced technologies, and nurture the next generation of innovators, our focus remains constant: long-term value creation with integrity.</p>
+                <p style="margin-top: 15px; line-height: 1.8;">Looking ahead to 2026 and beyond, AEITY is committed to ethical innovation, sustainable growth, and meaningful partnerships across industries and geographies. I invite clients, partners, innovators, and future team members to join us as we build technology that truly serves humanity.</p>
+                <div class="signature">— Sivakumar G</div>
+                <p style="font-weight: 600; color: #667eea;">Founder, CEO & Managing Director<br>AEITY Systems Private Limited</p>
+            </div>
+            
+            <h1 style="margin-top: 50px;">Contents</h1>
+            <div class="toc-grid">
+                <div class="toc-item" onclick="goToPage(3)">
+                    <div class="toc-number">ARTICLE 01</div>
+                    <div class="toc-title">Global Impact Story</div>
+                    <div class="toc-desc">Building a Connected Global Technology Ecosystem</div>
+                </div>
+                <div class="toc-item" onclick="goToPage(4)">
+                    <div class="toc-number">ARTICLE 02</div>
+                    <div class="toc-title">Vision 2026</div>
+                    <div class="toc-desc">A Strategic Roadmap for Responsible Growth</div>
+                </div>
+                <div class="toc-item" onclick="goToPage(5)">
+                    <div class="toc-number">ARTICLE 03</div>
+                    <div class="toc-title">Technology Revolution</div>
+                    <div class="toc-desc">AI, Cloud, Edge & Emerging Technologies</div>
+                </div>
+                <div class="toc-item" onclick="goToPage(6)">
+                    <div class="toc-number">ARTICLE 04</div>
+                    <div class="toc-title">Entrepreneurship Hub</div>
+                    <div class="toc-desc">AEITY Ventures – Enabling Innovators</div>
+                </div>
+                <div class="toc-item" onclick="goToPage(7)">
+                    <div class="toc-number">ARTICLE 05</div>
+                    <div class="toc-title">Portfolio Transformations</div>
+                    <div class="toc-desc">Real Challenges. Real Outcomes.</div>
+                </div>
+                <div class="toc-item" onclick="goToPage(8)">
+                    <div class="toc-number">ARTICLE 06</div>
+                    <div class="toc-title">Industry Leadership</div>
+                    <div class="toc-desc">Deep Expertise Across Multiple Sectors</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 3: ARTICLE 1 - GLOBAL IMPACT -->
+        <div class="page" id="page-3">
+            <div class="article-number">ARTICLE 01</div>
+            <h1>Global Impact Story</h1>
+            <h2>Building a Connected Global Technology Ecosystem</h2>
+            
+            <div class="two-column">
+                <p class="drop-cap">AEITY's journey reflects the power of vision, perseverance, and responsible innovation. What began as a focused technology initiative has evolved into a globally engaged digital transformation ecosystem, supporting clients, partners, and innovators across multiple regions.</p>
+                
+                <p>Today, AEITY collaborates with organizations across North America, Europe, Asia-Pacific, the Middle East, and emerging markets, delivering solutions that modernize operations, unlock innovation, and create measurable business outcomes.</p>
+                
+                <p>Rather than measuring success solely in scale, AEITY measures impact through businesses transformed, technologies responsibly deployed, talent nurtured and empowered, and communities enabled through digital access.</p>
+            </div>
+
+            <div class="pull-quote">
+                "We don't just build technology—we help organizations bridge ambition with execution."
+            </div>
+
+            <div class="stats-box">
+                <div class="stat-item">
+                    <div class="stat-number">25+</div>
+                    <div class="stat-label">Global Markets</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5000+</div>
+                    <div class="stat-label">Team Members</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Enterprise Clients</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Client Satisfaction</div>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <p>Our teams represent diverse cultures, perspectives, and expertise, enabling AEITY to design solutions that are globally scalable yet locally relevant. This diversity isn't just a value statement—it's our competitive advantage in understanding and serving clients across different markets and industries.</p>
+                
+                <p>From startup founders building their first product to Fortune 500 enterprises modernizing legacy systems, AEITY brings the same commitment to excellence, innovation, and partnership to every engagement.</p>
+            </div>
+        </div>
+
+        <!-- PAGE 4: ARTICLE 2 - VISION 2026 -->
+        <div class="page" id="page-4">
+            <div class="article-number">ARTICLE 02</div>
+            <h1>Vision 2026</h1>
+            <h2>A Strategic Roadmap for Responsible Growth</h2>
+            
+            <p class="drop-cap" style="line-height: 1.8;">AEITY's Vision 2026 is built on four foundational pillars that guide our strategic decisions, investments, and partnerships. These pillars represent our commitment to balanced, sustainable growth that creates value for all stakeholders.</p>
+
+            <div class="feature-box">
+                <h3>Four Strategic Pillars</h3>
+                <ul>
+                    <li><strong>Innovation Excellence:</strong> Continuous investment in R&D, emerging technologies, and breakthrough solutions</li>
+                    <li><strong>Global Expansion:</strong> Strategic market entry and partnership development across key regions</li>
+                    <li><strong>Sustainable Growth:</strong> Environmental responsibility and ethical business practices</li>
+                    <li><strong>Human-Centric Technology:</strong> Solutions that empower people and enhance experiences</li>
+                </ul>
+            </div>
+
+            <div class="pull-quote">
+                "The future belongs to builders who combine ambition with discipline."
+            </div>
+
+            <h3>Strategic Direction for 2026</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>Q1 2026: Market Expansion</h4>
+                    <p>Launch operations in 5 new markets with local partnerships and regulatory compliance frameworks</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Q2 2026: Technology Investment</h4>
+                    <p>Open 3 advanced AI research labs and increase R&D budget by 40%</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Q3 2026: Sustainability Initiative</h4>
+                    <p>Achieve carbon-neutral operations and launch green technology solutions portfolio</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Q4 2026: Ecosystem Growth</h4>
+                    <p>Expand industry partnerships and strengthen digital transformation capabilities</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; line-height: 1.8;">Our roadmap emphasizes measured scale, ecosystem collaboration, and long-term value creation, rather than short-term hype. Every initiative is evaluated through the lens of sustainable impact, technical excellence, and alignment with our core values.</p>
+        </div>
+
+        <!-- PAGE 5: ARTICLE 3 - TECHNOLOGY REVOLUTION -->
+        <div class="page" id="page-5">
+            <div class="article-number">ARTICLE 03</div>
+            <h1>Technology Revolution</h1>
+            <h2>AI, Cloud, Edge & Emerging Technologies</h2>
+            
+            <p class="drop-cap" style="line-height: 1.8;">AEITY focuses on enterprise-ready, responsible technology adoption that delivers measurable outcomes. Our technology strategy balances cutting-edge innovation with practical implementation, ensuring our clients can harness advanced capabilities without unnecessary complexity or risk.</p>
+
+            <div class="stats-box">
+                <div class="stat-item">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">AI Models Deployed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15PB</div>
+                    <div class="stat-label">Data Processed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">99.99%</div>
+                    <div class="stat-label">Platform Uptime</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Patents Filed</div>
+                </div>
+            </div>
+
+            <h3>Core Technology Domains</h3>
+            
+            <div class="feature-box">
+                <h4>Artificial Intelligence</h4>
+                <p>Applied AI solutions including machine learning, natural language processing, computer vision, and predictive analytics. We focus on explainable AI, ethical frameworks, and practical automation that augments human capabilities.</p>
+            </div>
+
+            <div class="feature-box">
+                <h4>Cloud Platforms</h4>
+                <p>Secure, scalable, multi-cloud and hybrid architectures with enterprise-grade security, compliance automation, disaster recovery, and cost optimization built in from day one.</p>
+            </div>
+
+            <div class="feature-box">
+                <h4>Edge Computing</h4>
+                <p>Real-time intelligence closer to data sources for IoT deployments, manufacturing automation, smart cities, and low-latency applications requiring instant decision-making.</p>
+            </div>
+
+            <div class="feature-box">
+                <h4>Emerging Technologies</h4>
+                <p>Forward-looking research in quantum computing applications, blockchain for enterprise, advanced cybersecurity solutions, and next-generation network architectures.</p>
+            </div>
+
+            <div class="pull-quote">
+                "Technology should be intuitive, secure, and invisible—until it delivers impact."
+            </div>
+
+            <p style="margin-top: 30px; line-height: 1.8;">Our approach prioritizes practical outcomes over technological complexity, security-by-design over retrofitted protection, and ethical AI frameworks that ensure responsible deployment. Every technology investment is evaluated for real-world applicability and measurable business value.</p>
+        </div>
+
+        <!-- PAGE 6: ARTICLE 4 - ENTREPRENEURSHIP HUB -->
+        <div class="page" id="page-6">
+            <div class="article-number">ARTICLE 04</div>
+            <h1>Entrepreneurship Hub</h1>
+            <h2>AEITY Ventures – Enabling the Next Wave of Innovators</h2>
+            
+            <p class="drop-cap" style="line-height: 1.8;">AEITY believes innovation thrives in ecosystems where ideas can flourish, founders can find support, and breakthrough technologies can scale responsibly. AEITY Ventures represents our commitment to nurturing the next generation of innovators through comprehensive support that goes beyond traditional investment.</p>
+
+            <div class="stats-box">
+                <div class="stat-item">
+                    <div class="stat-number">$500M</div>
+                    <div class="stat-label">Investment Fund</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">150+</div>
+                    <div class="stat-label">Startups Supported</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">25</div>
+                    <div class="stat-label">Success Exits</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">85%</div>
+                    <div class="stat-label">Survival Rate</div>
+                </div>
+            </div>
+
+            <div class="pull-quote">
+                "We invest in founders, not just ideas."
+            </div>
+
+            <h3>Our Support Framework</h3>
+            
+            <div class="two-column">
+                <p><strong>Mentorship Network:</strong> Access to experienced entrepreneurs, industry experts, and technical advisors who provide guidance on strategy, execution, and scaling challenges.</p>
+                
+                <p><strong>Technology Access:</strong> Cloud infrastructure credits, development tools, AI platforms, and security solutions to accelerate product development without burning capital.</p>
+                
+                <p><strong>Ecosystem Partnerships:</strong> Introductions to potential clients, channel partners, and strategic investors within AEITY's extensive network.</p>
+                
+                <p><strong>Strategic Guidance:</strong> Support with go-to-market strategy, product positioning, pricing models, and international expansion planning.</p>
+            </div>
+
+            <h3>Focus Areas</h3>
+            
+            <div class="feature-box">
+                <ul>
+                    <li><strong>AI & Data Platforms:</strong> Intelligent applications, analytics tools, and data infrastructure solutions</li>
+                    <li><strong>FinTech & Digital Commerce:</strong> Payment innovations, digital banking, and e-commerce enablement</li>
+                    <li><strong>Sustainability & Climate Tech:</strong> Clean energy solutions, carbon tracking, and environmental monitoring</li>
+                    <li><strong>Enterprise SaaS & Cybersecurity:</strong> Business productivity tools and advanced security solutions</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 30px; line-height: 1.8;">Through innovation labs and accelerator programs, AEITY helps early-stage ventures move from concept to scalable impact. Our approach combines patient capital with hands-on support, recognizing that building enduring companies requires more than just funding.</p>
+        </div>
+
+        <!-- PAGE 7: ARTICLE 5 - PORTFOLIO TRANSFORMATIONS -->
+        <div class="page" id="page-7">
+            <div class="article-number">ARTICLE 05</div>
+            <h1>Portfolio Transformations</h1>
+            <h2>Real Challenges. Real Outcomes.</h2>
+            
+            <p class="drop-cap" style="line-height: 1.8;">Across industries, AEITY partners with organizations to modernize legacy systems, improve operational efficiency, enhance customer experiences, and enable data-driven decision making. Each transformation is rooted in deep collaboration, phased execution, and measurable results—because sustainable change is never one-size-fits-all.</p>
+
+            <div class="case-study">
+                <div class="case-title">Global Healthcare Provider</div>
+                <p><strong>Challenge:</strong> Fragmented patient data across 50+ facilities preventing coordinated care</p>
+                <p><strong>Solution:</strong> Unified cloud-based health records platform with AI-powered diagnostics support</p>
+                <p><strong>Impact:</strong> 40% reduction in duplicate tests, 25% improvement in diagnosis accuracy, 1M+ patients benefiting</p>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Regional Financial Institution</div>
+                <p><strong>Challenge:</strong> Legacy core banking systems unable to support digital customer expectations</p>
+                <p><strong>Solution:</strong> Phased modernization with hybrid cloud architecture and real-time transaction processing</p>
+                <p><strong>Impact:</strong> 10x faster transaction processing, 60% cost reduction, 95% customer satisfaction</p>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">International Retail Chain</div>
+                <p><strong>Challenge:</strong> Disconnected inventory systems causing stockouts and overstock situations</p>
+                <p><strong>Solution:</strong> AI-powered supply chain optimization with predictive demand forecasting</p>
+                <p><strong>Impact:</strong> 30% inventory reduction, 45% fewer stockouts, $50M annual savings</p>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Manufacturing Conglomerate</div>
+                <p><strong>Challenge:</strong> Equipment failures causing costly production downtime</p>
+                <p><strong>Solution:</strong> IoT sensors with edge computing for predictive maintenance</p>
+                <p><strong>Impact:</strong> 70% reduction in unplanned downtime, 35% maintenance cost savings</p>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Educational Institution</div>
+                <p><strong>Challenge:</strong> Limited digital learning capabilities during pandemic disruption</p>
+                <p><strong>Solution:</strong> Comprehensive learning management platform with adaptive content delivery</p>
+                <p><strong>Impact:</strong> 50K+ students reached, 85% engagement rate, seamless hybrid learning</p>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Energy Utility Provider</div>
+                <p><strong>Challenge:</strong> Aging grid infrastructure requiring modernization for renewable integration</p>
+                <p><strong>Solution:</strong> Smart grid platform with real-time monitoring and automated load balancing</p>
+                <p><strong>Impact:</strong> 25% efficiency improvement, 40% faster outage response, 2M customers served</p>
+            </div>
+
+            <div class="pull-quote">
+                "Transformation isn't about technology alone—it's about people, process, and purposeful change."
+            </div>
+        </div>
+
+        <!-- PAGE 8: ARTICLE 6 - INDUSTRY LEADERSHIP -->
+        <div class="page" id="page-8">
+            <div class="article-number">ARTICLE 06</div>
+            <h1>Industry Leadership</h1>
+            <h2>Deep Expertise Across Multiple Sectors</h2>
+            
+            <p class="drop-cap" style="line-height: 1.8;">AEITY brings domain-focused expertise across sectors, combining deep industry knowledge with technical excellence. Our sector-specific teams understand the unique challenges, regulatory requirements, and competitive dynamics that shape each industry.</p>
+
+            <div class="pull-quote">
+                "Technology delivers value only when it understands industry realities."
+            </div>
+
+            <div class="stats-box">
+                <div class="stat-item">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Industry Sectors</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">300+</div>
+                    <div class="stat-label">Domain Experts</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">Projects Delivered</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+            </div>
+
+            <h3>Sector Expertise</h3>
+
+            <div class="two-column">
+                <div>
+                    <p><strong>Healthcare & Life Sciences:</strong> Electronic health records, telemedicine platforms, clinical decision support, drug discovery acceleration, and regulatory compliance solutions.</p>
+                    
+                    <p><strong>Financial Services:</strong> Digital banking, payments modernization, fraud detection, regulatory reporting, wealth management platforms, and blockchain applications.</p>
+                    
+                    <p><strong>Retail & E-Commerce:</strong> Omnichannel experiences, personalization engines, inventory optimization, supply chain visibility, and customer analytics.</p>
+                    
+                    <p><strong>Manufacturing & Supply Chain:</strong> Smart factory solutions, predictive maintenance, quality control automation, logistics optimization, and supplier collaboration platforms.</p>
+                    
+                    <p><strong>Education & Public Sector:</strong> Learning management systems, digital credentials, citizen services portals, data analytics, and accessibility solutions.</p>
+                    
+                    <p><strong>Energy, Utilities & Smart Infrastructure:</strong> Smart grid management, renewable energy integration, asset optimization, sustainability tracking, and IoT deployments.</p>
+                </div>
+            </div>
+
+            <div class="feature-box" style="margin-top: 30px;">
+                <h4>Additional Sectors</h4>
+                <ul style="column-count: 2; column-gap: 30px;">
+                    <li>Telecommunications & Media</li>
+                    <li>Transportation & Logistics</li>
+                    <li>Hospitality & Travel</li>
+                    <li>Insurance & Risk Management</li>
+                    <li>Real Estate & Construction</li>
+                    <li>Agriculture & Food Tech</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 30px; line-height: 1.8;">Our industry-focused approach ensures solutions are not just technically sound but contextually relevant, addressing real business challenges with proven methodologies and best practices refined through hundreds of successful engagements.</p>
+        </div>
+
+        <!-- PAGE 9: ARTICLE 7 - AEITY CULTURE -->
+        <div class="page" id="page-9">
+            <div class="article-number">ARTICLE 07</div>
+            <h1>AEITY Culture</h1>
+            <h2>Where Innovation Meets Purpose</h2>
+            
+            <p class="drop-cap" style="line-height: 1.8;">AEITY's culture is built on core values that guide how we work, collaborate, and grow together. We believe that exceptional technology comes from exceptional people working in an environment that values integrity, inclusion, innovation, and balance.</p>
+
+            <div class="stats-box">
+                <div class="stat-item">
+                    <div class="stat-number">5000+</div>
+                    <div class="stat-label">Team Members</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">45%</div>
+                    <div class="stat-label">Women in Tech</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">60+</div>
+                    <div class="stat-label">Nationalities</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4.8/5</div>
+                    <div class="stat-label">Employee Rating</div>
+                </div>
+            </div>
+
+            <h3>Core Cultural Values</h3>
+
+            <div class="feature-box">
+                <h4>Integrity Without Compromise</h4>
+                <p>We do what's right, even when it's difficult. Transparency, honesty, and ethical conduct are non-negotiable in every interaction and decision.</p>
+            </div>
+
+            <div class="feature-box">
+                <h4>Inclusion Without Exception</h4>
+                <p>Diversity isn't a checkbox—it's our strength. We actively create environments where everyone belongs, contributes, and thrives regardless of background.</p>
+            </div>
+
+            <div class="feature-box">
+                <h4>Innovation Without Boundaries</h4>
+                <p>We encourage experimentation, celebrate learning from failure, and remove barriers that prevent great ideas from becoming reality.</p>
+            </div>
+
+            <div class="feature-box">
+                <h4>Balance Without Burnout</h4>
+                <p>Sustainable performance requires sustainable practices. We respect personal time, promote wellbeing, and recognize that rest fuels creativity.</p>
+            </div>
+
+            <div class="pull-quote">
+                "We hire for mindset, nurture potential, and grow leaders from within."
+            </div>
+
+            <h3>Our Investment in People</h3>
+
+            <div class="two-column">
+                <p><strong>Continuous Learning:</strong> Annual learning budgets, certification programs, conference attendance, online courses, mentorship programs, and technical training paths for every role.</p>
+                
+                <p><strong>Leadership Development:</strong> Structured leadership programs, executive coaching, cross-functional projects, and clear pathways from individual contributor to senior leadership roles.</p>
+                
+                <p><strong>Flexible Work Models:</strong> Hybrid work options, flexible hours, remote-first policies for many roles, and tools that enable collaboration across time zones and locations.</p>
+                
+                <p><strong>Employee Wellbeing:</strong> Comprehensive health benefits, mental health support, fitness programs, parental leave, volunteer time off, and wellness initiatives.</p>
+            </div>
+
+            <p style="margin-top: 30px; line-height: 1.8;">At AEITY, we understand that our success is directly tied to the growth, happiness, and fulfillment of our team members. We invest in people not just as employees, but as partners in building something meaningful together.</p>
+        </div>
+
+        <!-- PAGE 10: ARTICLE 8 - INNOVATION SPOTLIGHT -->
+        <div class="page" id="page-10">
+            <div class="article-number">ARTICLE 08</div>
+            <h1>Innovation Spotlight</h1>
+            <h2>Building Tomorrow's Capabilities Today</h2>
+            
+            <p class="drop-cap" style="line-height: 1.8;">AEITY continuously invests in breakthrough technologies and forward-looking research that will define the next decade of digital transformation. Our innovation labs explore emerging capabilities while our product teams bring these innovations to market responsibly.</p>
+
+            <h3>Current Innovation Initiatives</h3>
+
+            <div class="feature-box">
+                <h4>Advanced AI Research</h4>
+                <p>Exploring large language models for enterprise applications, reinforcement learning for autonomous systems, computer vision for industrial automation, and explainable AI frameworks for regulated industries. Our research prioritizes practical applications over academic exercises.</p>
+            </div>
+
+            <div class="feature-box">
+                <h4>Sustainable Technology Solutions</h4>
+                <p>Developing carbon tracking platforms, energy optimization algorithms, circular economy enablement tools, and green cloud architectures. Technology must be part of the climate solution, not the problem.</p>
+            </div>
+
+            <div class="feature-box">
+                <h4>Secure Digital Infrastructure</h4>
+                <p>Advancing zero-trust architectures, quantum-resistant cryptography, decentralized identity systems, and AI-powered threat detection. Security is foundational, not an afterthought.</p>
+            </div>
+
+            <div class="feature-box">
+                <h4>Responsible Automation</h4>
+                <p>Building intelligent automation that augments human capabilities rather than replacing them. Focus areas include collaborative robotics, process intelligence, and human-in-the-loop systems.</p>
+            </div>
+
+            <div class="stats-box">
+                <div class="stat-item">
+                    <div class="stat-number">$200M</div>
+                    <div class="stat-label">Annual R&D Investment</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Innovation Labs</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">150+</div>
+                    <div class="stat-label">Active Research Projects</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Patents & IP</div>
+                </div>
+            </div>
+
+            <div class="pull-quote">
+                "Progress must benefit both business and society."
+            </div>
+
+            <h3>Innovation Partnerships</h3>
+
+            <p style="line-height: 1.8; margin-top: 20px;">AEITY collaborates with leading universities, research institutions, and technology partners to accelerate innovation. Our open innovation model recognizes that breakthrough ideas come from diverse sources and collaborative exploration.</p>
+
+            <div class="two-column" style="margin-top: 20px;">
+                <p>Recent partnerships include joint research programs with MIT, Stanford, and IIT systems on AI safety and ethics, collaboration with climate tech accelerators on sustainability solutions, and technology alliances with major cloud providers on next-generation platforms.</p>
+                
+                <p>We also sponsor hackathons, support academic research through grants, and provide platforms for student innovation through campus programs. Innovation thrives in ecosystems where knowledge flows freely and diverse perspectives collide.</p>
+            </div>
+        </div>
+
+        <!-- PAGE 11: ARTICLE 9 - CLIENT VOICES -->
+        <div class="page" id="page-11">
+            <div class="article-number">ARTICLE 09</div>
+            <h1>Client Voices</h1>
+            <h2>Partnership Beyond Projects</h2>
+            
+            <p class="drop-cap" style="line-height: 1.8;">Across engagements, clients value AEITY for our strategic partnership mindset, execution excellence, transparent communication, and long-term commitment. Here's what our partners say about working with AEITY.</p>
+
+            <div class="testimonial">
+                <div class="testimonial-text">"AEITY didn't just deliver technology—they transformed how we think about digital innovation. Their team took time to understand our business, challenged our assumptions, and designed solutions that delivered measurable impact. Three years later, they're still our trusted advisor."</div>
+                <div class="testimonial-author">— Sarah Chen, CTO, Global Healthcare Corporation</div>
+            </div>
+
+            <div class="testimonial">
+                <div class="testimonial-text">"We've worked with many technology partners, but AEITY stands out for their combination of technical depth and business acumen. They speak our language, understand our constraints, and consistently deliver on their commitments. The cloud migration they led has saved us $15M annually."</div>
+                <div class="testimonial-author">— Michael Rodriguez, VP of Technology, Regional Bank</div>
+            </div>
+
+            <div class="testimonial">
+                <div class="testimonial-text">"What impressed us most was AEITY's proactive approach to problem-solving. When we encountered unexpected challenges during our digital transformation, their team quickly adapted, proposed alternative solutions, and kept the project on track. True partnership in action."</div>
+                <div class="testimonial-author">— Dr. Priya Sharma, Director of Digital Strategy, University System</div>
+            </div>
+
+            <div class="testimonial">
+                <div class="testimonial-text">"AEITY's AI-powered supply chain solution has been transformational for our operations. But beyond the technology, their team's dedication to our success—including training our staff and iterating based on feedback—made all the difference. They're invested in our outcomes, not just project completion."</div>
+                <div class="testimonial-author">— James Thompson, COO, International Retail Chain</div>
+            </div>
+
+            <div class="testimonial">
+                <div class="testimonial-text">"As a startup founder, I needed a technology partner who could scale with us. AEITY provided not just development expertise but strategic guidance on architecture decisions that would support our growth. Two years and 10x user growth later, our platform hasn't missed a beat."</div>
+                <div class="testimonial-author">— Lisa Wang, Founder & CEO, FinTech Startup</div>
+            </div>
+
+            <div class="testimonial">
+                <div class="testimonial-text">"The security-first approach AEITY brought to our infrastructure modernization gave our board confidence to approve the initiative. Their team's expertise in compliance, risk management, and secure architecture design was exactly what we needed for our regulated industry."</div>
+                <div class="testimonial-author">— David Kumar, CISO, Insurance Company</div>
+            </div>
+
+            <div class="pull-quote">
+                "Success is measured by trust earned and outcomes delivered."
+            </div>
+        </div>
+
+        <!-- PAGE 12: ARTICLE 10 - THE ROAD AHEAD -->
+        <div class="page" id="page-12">
+            <div class="article-number">ARTICLE 10</div>
+            <h1>The Road Ahead</h1>
+            <h2>Vision 2026–2030</h2>
+            
+            <p class="drop-cap" style="line-height: 1.8;">AEITY's long-term vision extends beyond quarterly targets and annual goals. We're building an organization designed to create value for decades, guided by principles that balance growth with responsibility, innovation with ethics, and ambition with sustainability.</p>
+
+            <h3>Strategic Priorities (2026-2030)</h3>
+
+            <div class="feature-box">
+                <h4>Global Ecosystem Expansion</h4>
+                <p>Establishing presence in 50+ countries through organic growth and strategic partnerships. Building local teams that understand regional markets while leveraging global capabilities and best practices. Creating centers of excellence in key innovation hubs worldwide.</p>
+            </div>
+
+            <div class="feature-box">
+                <h4>Ethical AI Leadership</h4>
+                <p>Becoming a recognized leader in responsible AI development and deployment. Publishing transparent AI ethics frameworks, contributing to industry standards, and ensuring our AI systems are explainable, fair, and accountable. Technology that serves humanity requires ethical guardrails.</p>
+            </div>
+
+            <div class="feature-box">
+                <h4>Carbon-Responsible Operations</h4>
+                <p>Achieving net-zero emissions across all operations by 2028. Investing in renewable energy, optimizing data center efficiency, enabling remote work to reduce travel, and helping clients reduce their carbon footprint through sustainable technology solutions.</p>
+            </div>
+
+            <div class="feature-box">
+                <h4>Technology Access and Inclusion</h4>
+                <p>Ensuring technology benefits reach underserved communities. Supporting digital literacy programs, providing pro-bono services to nonprofits, developing affordable solutions for small businesses, and creating opportunities for underrepresented groups in tech.</p>
+            </div>
+
+            <div class="feature-box">
+                <h4>Strong Governance and Compliance</h4>
+                <p>Maintaining highest standards of corporate governance, data protection, and regulatory compliance. Building trust through transparency, accountability, and consistent ethical conduct in every market we serve.</p>
+            </div>
+
+            <div class="stats-box" style="margin-top: 40px;">
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Countries by 2030</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">$5B</div>
+                    <div class="stat-label">Revenue Target</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">20K+</div>
+                    <div class="stat-label">Team Members</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">Net Zero</div>
+                    <div class="stat-label">Carbon by 2028</div>
+                </div>
+            </div>
+
+            <div class="pull-quote">
+                "We are building AEITY not just for growth—but for generations."
+            </div>
+
+            <p style="margin-top: 30px; line-height: 1.8;">The journey ahead is ambitious but grounded in the fundamentals that have brought us this far: technical excellence, ethical conduct, customer focus, and unwavering commitment to creating positive impact. We invite partners, clients, and innovators to join us in building a future where technology truly serves humanity.</p>
+
+            <p style="margin-top: 20px; line-height: 1.8; font-weight: 600; color: #667eea;">The best way to predict the future is to build it—together.</p>
+        </div>
+
+        <!-- PAGE 13: BACK COVER -->
+        <div class="page back-cover" id="page-13">
+            <div>
+                <h1 style="color: white; border-color: white;">Connect With AEITY</h1>
+                <p style="font-size: 20px; line-height: 1.8; margin-top: 20px;">Join us in transforming tomorrow, today. Whether you're a potential client, partner, investor, or future team member—we'd love to hear from you.</p>
+            </div>
+
+            <div class="cta-section">
+                <h2 style="color: white; margin-bottom: 30px;">Ready to Start Your Journey?</h2>
+                <button class="cta-button">🌐 Visit Website</button>
+                <button class="cta-button">👩‍💻 Explore Careers</button>
+                <button class="cta-button">🤝 Partner With Us</button>
+                <button class="cta-button">💡 Start a Project</button>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <h3 style="color: white;">Global Headquarters</h3>
+                    <p>Bangalore, India</p>
+                </div>
+                <div class="contact-item">
+                    <h3 style="color: white;">Email</h3>
+                    <p>info@aeitys.com</p>
+                </div>
+                <div class="contact-item">
+                    <h3 style="color: white;">Connect</h3>
+                    <p>LinkedIn | Twitter | Facebook</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 60px; padding-top: 30px; border-top: 2px solid rgba(255,255,255,0.3);">
+                <div class="logo" style="font-size: 48px; margin-bottom: 15px;">AEITY</div>
+                <p style="font-size: 18px; opacity: 0.9;">Transforming Tomorrow, Today</p>
+                <p style="font-size: 14px; margin-top: 20px; opacity: 0.8;">© 2026 AEITY Systems Private Limited. All Rights Reserved.</p>
+                <p style="font-size: 12px; margin-top: 10px; opacity: 0.7;">Global Innovation • Digital Excellence • Sustainable Growth</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <div class="nav-controls">
+        <button class="nav-btn" onclick="prevPage()">← Previous</button>
+        <div class="page-indicator">
+            <span id="current-page">1</span> / <span id="total-pages">13</span>
+        </div>
+        <button class="nav-btn" onclick="nextPage()">Next →</button>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 13;
+
+        function showPage(pageNum) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            document.getElementById(`page-${pageNum}`).classList.add('active');
+            document.getElementById('current-page').textContent = pageNum;
+            currentPage = pageNum;
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                showPage(currentPage + 1);
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                showPage(currentPage - 1);
+            }
+        }
+
+        function goToPage(pageNum) {
+            showPage(pageNum);
+        }
+
+        document.getElementById('total-pages').textContent = totalPages;
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextPage();
+            if (e.key === 'ArrowLeft') prevPage();
+        });
+    </script>
+</body>
+</html>
